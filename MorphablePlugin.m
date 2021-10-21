@@ -29,9 +29,9 @@ classdef MorphablePlugin < audioPlugin
         % octave scaling of the detected input frequency
         FreqScale = 0;
         % input gain in dB
-        InGain = 0;      
+        InGain = 0;
         % output gain in dB
-        OutGain = 0;     
+        OutGain = 0;
         % Number of samples generated based on a single run of the decoder.
         % The models included here were trained on a frame rate of 250, 
         % corresponding to a frame size of 176 at a sample rate of 44.1 kHz.
@@ -40,10 +40,10 @@ classdef MorphablePlugin < audioPlugin
         % the frame size is  an adjustable parameter: Higher frame sizes invoke
         % the decoder less often and enable real-time, but decrease the accuracy
         % of the generated synthesizer parameters.
-        FrameSize = 512; 
+        FrameSize = 512;
         % scaling for the number of FFT points for the 
         % harmonic summation
-        FftResol = 5;    
+        FftResol = 5;
     end
     
     properties (Constant)

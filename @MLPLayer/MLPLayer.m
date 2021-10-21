@@ -13,6 +13,11 @@ classdef MLPLayer < handle
     
     methods
         function obj = MLPLayer(kernel, bias, beta, gamma, epsilon, alpha)
+            % MLPLayer constructor
+            % Called without parameters it just creates a placeholder instance
+            % of the class. If provided with parameters (e.g. for fixed-model 
+            % implementations) sets the properties of the instance -- see
+            % MLPLayer.update().
             if nargin >= 4
                 if nargin == 4
                     % The default values used in the tensorflow implementation

@@ -16,14 +16,19 @@ classdef GRULayer < handle
     
     methods
         function obj = GRULayer(inputKernel, recurrentKernel, bias)
+            % GRULayer constructor
+            % Called without parameters it just creates a placeholder instance
+            % of the class. If provided with parameters (e.g. for fixed-model 
+            % implementations) sets the properties of the instance -- see
+            % GRULayer.update().
             if nargin == 3
                 obj.update(inputKernel, recurrentKernel, bias);
             end
         end
         
         function update(obj, inputKernel, recurrentKernel, bias)
-            % The constructor loads the passed weight matrices
-            % a tensorflow keras model, into the appropriate variables
+            % Loads the passed weight matrices, a tensorflow keras model, into 
+            % the appropriate variables
             
             % Inputs:
             %   inputKernel  : The input weights of the GRU, of the shape
@@ -72,7 +77,7 @@ classdef GRULayer < handle
             obj.Brh = bias(2,hidx);
         end
         
-        function out = call(obj,in)
+        function out = call(obj, in)
             % in: a row vector matching the input size determined by the 
             % weights of the layer
             

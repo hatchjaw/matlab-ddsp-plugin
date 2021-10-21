@@ -20,13 +20,13 @@ classdef MorphableDecoder < handle
         % Feed-forward stack for loudness
         LdLayer1, LdLayer2, LdLayer3;
         % Feed-forward stack for f0
-        F0Layer1, F0Layer2, F0Layer3;    
+        F0Layer1, F0Layer2, F0Layer3;
         % Recurrent layer  
-        GRU;                             
+        GRU;
         % Feed-forward stack for the GRU output
-        OutLayer1, OutLayer2, OutLayer3; 
+        OutLayer1, OutLayer2, OutLayer3;
         % Final projection layer
-        OutProjKernel, OutProjBias;      
+        OutProjKernel, OutProjBias;
     end
 
     properties (Constant)
@@ -45,6 +45,7 @@ classdef MorphableDecoder < handle
     
     methods
         function obj = MorphableDecoder()
+            % Initialise the morphable decoder with empty layer instances.
             obj.LdLayer1 = MLPLayer();
             obj.LdLayer2 = MLPLayer();
             obj.LdLayer3 = MLPLayer();
@@ -56,10 +57,14 @@ classdef MorphableDecoder < handle
             obj.OutLayer3 = MLPLayer();
             obj.GRU = GRULayer();
             
+            % Trigger the initial layer update.
             obj.updateLayers();
         end
         
         function updateLayers(obj, morphRatio)
+            % Update coefficients for layers of the neural network as a hybrid
+            % of values from two weights files.
+
             if nargin == 1
                 morphRatio = 50;
             end
@@ -83,10 +88,8 @@ classdef MorphableDecoder < handle
             % field names and vector dimensions.
             fields = fieldnames(w1);
             for k = 1:numel(fields)
-                    w.(fields{k}) = ( ...
-                        magnitudeW1 * w1.(fields{k}) + ...
-                        magnitudeW2 * w2.(fields{k}) ...
-                    );
+                    w.(fields{k}) = magnitudeW1 * w1.(fields{k}) + ...
+                        magnitudeW2 * w2.(fields{k});
             end
             
             obj.LdLayer1.update(w.ld_dense_0_kernel, w.ld_dense_0_bias,...
